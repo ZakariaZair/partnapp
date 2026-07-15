@@ -1,0 +1,25 @@
+{
+  "name": "partnapp",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/mobile",
+    "apps/web"
+  ],
+  "scripts": {
+    "api:dev": "dotnet run --project apps/api/PartNApp.Api.csproj",
+    "api:restore": "dotnet restore apps/api/PartNApp.Api.csproj",
+    "api:build": "dotnet build apps/api/PartNApp.Api.csproj",
+    "mobile:start": "npm --workspace @partnapp/mobile run start",
+    "mobile:ios": "npm --workspace @partnapp/mobile run ios",
+    "mobile:android": "npm --workspace @partnapp/mobile run android",
+    "mobile:doctor": "npm --workspace @partnapp/mobile run doctor",
+    "web:dev": "npm --workspace @partnapp/web run dev",
+    "web:build": "npm --workspace @partnapp/web run build",
+    "web:preview": "npm --workspace @partnapp/web run preview"
+  },
+  "engines": {
+    "node": ">=22",
+    "npm": ">=11"
+  }
+}
