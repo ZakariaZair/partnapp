@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# PartNApp Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Client web React + Vite indépendant de l’application mobile Expo.
 
-Currently, two official plugins are available:
+## Configuration
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Créer un `.env` à la racine du dépôt à partir de `.env.example` :
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+cp .env.example .env
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Variable utilisée par le client web :
+
+```bash
+VITE_API_BASE_URL=http://localhost:5000
+```
+
+## Commandes
+
+Depuis la racine :
+
+```bash
+npm run web:dev
+npm run web:build
+npm run web:preview
+```
+
+## État fonctionnel
+
+Le client web contient aujourd’hui :
+
+- landing page ;
+- onboarding web ;
+- connexion démo ;
+- profil utilisateur démo ;
+- liste, détail et création locale d’offres ;
+- expression d’intérêt locale ;
+- états loading, empty et error ;
+- affichage de l’URL API configurée.
+
+Les appels persistants attendent les contrats API métier : profils, offres, intérêts et authentification.
+
+## Déploiement web
+
+Le choix MVP est Vercel. La décision est documentée dans `docs/WEB_DEPLOYMENT.md`.
+
+Le prérequis est un build `npm run web:build` avec `VITE_API_BASE_URL` renseigné pour l’environnement ciblé.

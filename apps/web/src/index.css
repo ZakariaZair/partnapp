@@ -1,7 +1,10 @@
 :root {
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  color: #111827;
-  background: #f8fffd;
+  color: #171511;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(243, 223, 179, 0.62), transparent 22rem),
+    radial-gradient(circle at 85% 12%, rgba(90, 74, 45, 0.12), transparent 20rem),
+    linear-gradient(135deg, #ebe1cf 0%, #f4efe3 44%, #ebe1cf 100%);
   font: 16px/1.5 var(--sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,12 +16,23 @@ body {
   margin: 0;
 }
 
+body::before {
+  background-image:
+    linear-gradient(rgba(28, 27, 23, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 27, 23, 0.035) 1px, transparent 1px);
+  background-size: 38px 38px;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+}
+
 * {
   box-sizing: border-box;
 }
 
 h1 {
-  font-size: clamp(42px, 7vw, 86px);
+  font-size: clamp(42px, 6vw, 88px);
   letter-spacing: -0.07em;
   line-height: 0.95;
   margin: 0 0 24px;
@@ -31,4 +45,9 @@ h2 {
 
 p {
   margin: 0;
+}
+
+ul {
+  margin: 16px 0 0;
+  padding-left: 20px;
 }

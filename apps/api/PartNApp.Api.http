@@ -1,6 +1,130 @@
-@PartNApp.Api_HostAddress = http://localhost:0
+@PartNApp.Api_HostAddress = http://localhost:5000
+@profileId = 00000000-0000-0000-0000-000000000001
+@offerId = 00000000-0000-0000-0000-000000000010
+@interestId = 00000000-0000-0000-0000-000000000020
 
-GET {{PartNApp.Api_HostAddress}}/weatherforecast/
+GET {{PartNApp.Api_HostAddress}}/
 Accept: application/json
 
 ###
+
+GET {{PartNApp.Api_HostAddress}}/health
+Accept: application/json
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/health/db
+Accept: application/json
+
+###
+
+PUT {{PartNApp.Api_HostAddress}}/api/profiles/{{profileId}}
+Content-Type: application/json
+
+{
+  "displayName": "Alex Founder",
+  "headline": "Builds B2B SaaS products"
+}
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/api/profiles/{{profileId}}
+Accept: application/json
+
+###
+
+POST {{PartNApp.Api_HostAddress}}/api/offers
+Content-Type: application/json
+
+{
+  "ownerId": "{{profileId}}",
+  "title": "Find a technical cofounder",
+  "description": "I am validating a marketplace idea and looking for a technical partner to build the first version.",
+  "stage": "validation",
+  "skillsNeeded": ["React", "ASP.NET Core", "Product"],
+  "commitment": "Evenings and weekends",
+  "locationMode": "remote"
+}
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/api/offers?stage=validation&ownerId={{profileId}}
+Accept: application/json
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/api/offers/{{offerId}}
+Accept: application/json
+
+###
+
+PUT {{PartNApp.Api_HostAddress}}/api/offers/{{offerId}}
+Content-Type: application/json
+
+{
+  "ownerId": "{{profileId}}",
+  "title": "Find a technical cofounder",
+  "description": "I am validating a marketplace idea and looking for a technical partner to build the first version.",
+  "stage": "building",
+  "skillsNeeded": ["React", "ASP.NET Core", "Product"],
+  "commitment": "10 hours per week",
+  "locationMode": "remote"
+}
+
+###
+
+POST {{PartNApp.Api_HostAddress}}/api/offers/{{offerId}}/interests
+Content-Type: application/json
+
+{
+  "profileId": "{{profileId}}",
+  "message": "I am interested in discussing the product and technical scope."
+}
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/api/offers/{{offerId}}/interests
+Accept: application/json
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/api/profiles/{{profileId}}/interests
+Accept: application/json
+
+###
+
+DELETE {{PartNApp.Api_HostAddress}}/api/interests/{{interestId}}
+
+###
+
+DELETE {{PartNApp.Api_HostAddress}}/api/offers/{{offerId}}
+
+###
+
+GET {{PartNApp.Api_HostAddress}}/partnership-offers
+Accept: application/json
+
+###
+
+POST {{PartNApp.Api_HostAddress}}/partnership-offers
+Content-Type: application/json
+
+{
+  "id": "local-123",
+  "title": "Service local de tonte saisonnière",
+  "summary": "Recherche un partenaire opérationnel pour lancer un service local de tonte et entretien de cour.",
+  "projectStage": "Validation marché",
+  "skillsNeeded": ["Opérations", "Vente locale"],
+  "ownerName": "Alex",
+  "location": "Montréal"
+}
+
+###
+
+POST {{PartNApp.Api_HostAddress}}/partnership-offers/{{offerId}}/interests
+Content-Type: application/json
+
+{
+  "profileName": "Zakaria",
+  "message": "Je souhaite échanger sur cette offre depuis l'app mobile."
+}

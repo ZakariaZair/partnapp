@@ -46,29 +46,40 @@ npm run web:build
 
 ## API
 
-Endpoints initiaux :
+Contrats détaillés :
+
+- `docs/API_CONTRACTS.md`
+
+Endpoints de base :
 
 - `GET /` : identification de l’API.
 - `GET /health` : santé applicative.
 - `GET /health/db` : test de connexion Supabase/PostgreSQL via `ConnectionStrings__Supabase`.
 
+Endpoints métier :
+
+- `GET /api/profiles/{id}` et `PUT /api/profiles/{id}`
+- `GET /api/offers`, `GET /api/offers/{id}`, `POST /api/offers`, `PUT /api/offers/{id}`, `DELETE /api/offers/{id}`
+- `GET /api/offers/{offerId}/interests`, `GET /api/profiles/{profileId}/interests`, `POST /api/offers/{offerId}/interests`, `DELETE /api/interests/{id}`
+- alias mobile actuels : `GET /partnership-offers`, `POST /partnership-offers`, `POST /partnership-offers/{id}/interests`
+
 ## Supabase
 
-Une première migration existe dans `supabase/migrations`.
+Les migrations existent dans `supabase/migrations`.
 
-Elle pose une base volontairement simple :
+Elles posent une base volontairement simple :
 
 - `profiles`
 - `partnership_offers`
 - `partnership_interests`
-- RLS activé, sans policies pour l’instant
+- RLS activé
+- policies RLS préparées autour de Supabase Auth et `auth.uid()`
 
-Les policies RLS doivent être ajoutées quand le modèle d’authentification sera décidé.
+Décision actuelle : Supabase Auth est utilisé directement côté clients. L’UUID Supabase Auth correspond à `profiles.id`.
 
 ## Prochaines décisions à prendre
 
-1. Authentification : Supabase Auth directement côté clients, ou auth centralisée via l’API.
-2. Hébergement API : Azure App Service, Container Apps, Fly.io, Render, ou autre.
-3. Hébergement web : Vercel, Netlify, Cloudflare Pages, ou pipeline custom.
-4. Publication mobile : Expo Application Services (EAS) build/submit.
-5. RLS Supabase : policies exactes selon les règles produit.
+1. Auth API optionnelle : décider si l’API doit vérifier les JWT Supabase côté serveur avant chaque mutation.
+2. Règles produit avancées : archivage d’offres, visibilité fine des profils, scoring de matching.
+
+Les décisions MVP déjà prises sont documentées dans `docs/PRODUCT_DECISIONS.md`.

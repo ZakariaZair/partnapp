@@ -1,0 +1,153 @@
+PARTNAPP - INSTRUCTIONS DE LANCEMENT DES 3 AGENTS
+
+Objectif
+=======
+
+Lancer 3 agents spécialisés qui travaillent en parallèle sur PartNApp sans se marcher dessus.
+
+Chaque agent doit lire avant de commencer :
+
+1. AGENTS.md
+2. README.dev.md
+3. docs/FEATURES_CHECKLIST.md
+4. Les fichiers existants dans son dossier principal
+
+Règle générale
+==============
+
+Chaque agent garde son périmètre principal, mais doit tenir compte des contrats avec les autres apps.
+
+Si un agent découvre une règle nécessaire au bon fonctionnement du projet, il peut proposer ou ajouter une règle dans AGENTS.md uniquement si :
+
+- la règle évite un vrai problème ;
+- la règle est concrète ;
+- la règle ne bloque pas inutilement les autres agents ;
+- la règle ne force pas une décision produit ou technique qui n’a pas encore été validée.
+
+Agent 1 - Mobile
+================
+
+Périmètre principal :
+
+- apps/mobile
+
+Responsabilités :
+
+- construire l’application iOS/Android avec Expo ;
+- préparer les écrans mobile principaux ;
+- consommer les endpoints API nécessaires ;
+- respecter la séparation avec le client web ;
+- maintenir la compatibilité Expo ;
+- vérifier la configuration iOS/Android.
+
+Features prioritaires :
+
+- onboarding mobile ;
+- authentification mobile ;
+- profil utilisateur ;
+- liste des offres de partenariat ;
+- détail d’une offre ;
+- création d’une offre ;
+- expression d’intérêt / contact ;
+- états loading, empty, error ;
+- navigation mobile.
+
+Validation minimale avant de finir une tâche :
+
+- npm run mobile:doctor
+
+Agent 2 - Web
+=============
+
+Périmètre principal :
+
+- apps/web
+
+Responsabilités :
+
+- construire le client web séparé ;
+- garder un design et un parcours web indépendants du mobile ;
+- consommer les endpoints API nécessaires ;
+- préparer le futur système de déploiement web ;
+- éviter toute dépendance à Expo ou React Native.
+
+Features prioritaires :
+
+- page d’accueil web ;
+- onboarding ou landing publique ;
+- authentification web ;
+- profil utilisateur ;
+- liste des offres de partenariat ;
+- détail d’une offre ;
+- création d’une offre ;
+- pages d’erreur et états vides ;
+- configuration des variables d’environnement web.
+
+Validation minimale avant de finir une tâche :
+
+- npm run web:build
+
+Agent 3 - API / Supabase
+========================
+
+Périmètre principal :
+
+- apps/api
+- supabase
+
+Responsabilités :
+
+- construire l’API ASP.NET Core ;
+- exposer les endpoints consommés par mobile et web ;
+- gérer l’accès Supabase/PostgreSQL ;
+- maintenir les migrations SQL ;
+- documenter les contrats d’API ;
+- définir les règles de validation côté serveur ;
+- préparer les policies RLS quand le modèle d’authentification est décidé.
+
+Features prioritaires :
+
+- health checks ;
+- modèle profil ;
+- modèle offre de partenariat ;
+- modèle intérêt / demande de contact ;
+- endpoints CRUD nécessaires aux clients ;
+- validation des payloads ;
+- erreurs HTTP cohérentes ;
+- configuration CORS ;
+- migration Supabase initiale et évolutions ;
+- préparation des policies RLS.
+
+Validation minimale avant de finir une tâche :
+
+- dotnet build PartNApp.slnx --no-restore
+
+Coordination entre agents
+=========================
+
+1. Si un client a besoin d’un endpoint absent, il doit le noter clairement dans docs/FEATURES_CHECKLIST.md.
+2. Si l’API change un contrat, l’agent API doit mettre à jour la documentation ou la checklist avant que les clients s’adaptent.
+3. Les agents ne doivent pas modifier simultanément le même fichier partagé sans raison.
+4. Les décisions transversales doivent être documentées dans README.dev.md ou AGENTS.md.
+5. Les features terminées doivent être cochées dans docs/FEATURES_CHECKLIST.md.
+
+Commandes utiles
+================
+
+API :
+
+- npm run api:dev
+- npm run api:build
+
+Mobile :
+
+- npm run mobile:start
+- npm run mobile:ios
+- npm run mobile:android
+- npm run mobile:doctor
+
+Web :
+
+- npm run web:dev
+- npm run web:build
+- npm run web:preview
